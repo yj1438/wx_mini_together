@@ -1,0 +1,89 @@
+<!--index.wxml-->
+<view class="container">
+	<view class="join-members">
+		<view class="title">成员{{groupData.members.length}}人</view>
+		<view class="member">
+			<block wx:for="{{groupData.members}}" wx:item="item" wx:index="index" wx:key="id">
+				<image class="avatar-1" src="{{item.avatar}}" data-name="{{item.name}}"/>
+			</block>
+		</view>
+	</view>
+	<view class="group-info">
+		<input placeholder="请输入清单标题" 
+			value="{{groupData.name === '请输入清单标题' ? '' : groupData.name}}"
+			placeholder-style="color: #cccccc"
+			bindconfirm="bindConfirmTitle"
+			maxlength="15" />
+		<view class="btn-list" bindtap="bindTapGotoList">
+			<text>我的清单</text>
+		</view>
+	</view>
+	<view class="needs">
+		<view class="need-item">
+			<view class="btn-add" bindtap="bindTapEdit"></view>
+			<view wx:if="{{!isEditing}}" class="detail" bindtap="bindTapEdit" style="width:654rpx;">
+				<text style="color: #CCCCCC">准备做什么？</text>
+			</view>
+			<view wx:else="{{isEditing}}" class="detail" style="width:654rpx;">
+				<view class="cont">
+					<image src="{{userInfo.avatarUrl}}" class="avatar-2"/>
+					<input style="display: inline-block;" 
+						bindinput="bintInput"
+						maxlength="60"
+						cursor-spacing="100"
+						type="text" placeholder="" auto-focus />
+				</view>
+				<view class="operate">
+					<view class="btn" bindtap="bindTapSaveNeed">确定</view>
+				</view>
+			</view>
+		</view>
+		<view class="opt-tips" style="text-align: left;"><text>长按可删除自己的需求项</text></view>
+		<view class="need-item" 
+			wx:for="{{groupData.todos}}" wx:item="item" wx:index="index" wx:key="id"
+			bindtap="bindTapNeedItem"
+			bindlongtap="bindLongTapAction"
+			hover-stay-time="50"
+			hover="true"
+            hover-class="hover"
+			data-i="{{index}}"
+			data-value="{{item}}">
+			<!--
+			<view wx:if="{{item.isDone == 1}}" class="state doing"></view>
+			<view wx:elif="{{item.isDone == 2}}" class="state done"></view>
+			<view wx:elif="{{item.isMine}}" class="state mine"></view>
+			<view wx:else class="state todo"></view>
+			-->
+			<view wx:if="{{item.state == 2}}" class="mask"></view>
+			<!-- -->
+			<view class="detail">
+				<view class="cont">
+					<image src="{{item.presenter_avatar}}" class="avatar-2"/>
+					<text>{{item.todo_cont}}</text>
+				</view>
+				<view class="operate">
+					<!-- -->
+					<block wx:if="{{item.state == 2}}">
+						<view class="doing">已完成</view>
+					</block>
+					<block wx:elif="{{item.state == 1}}">
+						<view wx:if="{{item.finisher_id == userInfo.uid}}" class="mine" data-type="mine">完成</view>
+						<view wx:else class="doing">正在做...</view>
+					</block>
+					<block wx:else>
+						<view class="todo" data-type="todo">我来做</view>
+					</block>
+					<!-- -->
+				</view>
+				<view class="other" wx:if="{{item.state == 1 && chooseIndex === index}}">
+					<text class="by-name">{{item.finisher_name}}</text>正在如火如荼的进行...
+				</view>
+				<view class="other" wx:if="{{item.state == 2 && chooseIndex === index}}">
+					<text class="by-name">{{item.finisher_name}}</text>已经搞定了！
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+
+<include src="" src="secretEggs.wxml" />

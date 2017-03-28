@@ -1,0 +1,43 @@
+<view class="container">
+    <view wx:if="{{groupList.length > 0}}" class="group-area">
+        <view class="group-item {{item.count_todo > 0 ? 'has' : ''}}" 
+            hover="true"
+            hover-class="hover"
+            wx:for="{{groupList}}" 
+            wx:item="item" 
+            wx:index="index" 
+            wx:key="create_ts">
+            <view class="icon-state"></view>
+            <view class="info" bindtap="bindTapGotoGroup" bindlongtap="bindLongTapAction" data-item="{{item}}">
+                <view>
+                    <view class="l1">{{item.name}}</view>
+                    <view class="l2" wx:if="{{item.count_todo > 0}}">
+                        <text style="color: #4169e1;">{{item.count_todo}}</text>个待办事项
+                    </view>
+                    <view class="l2" wx:else>全部完成</view>
+                    <view class="l3">创建于 {{item.create_date}}</view>
+                </view>
+                <view class="memCount">成员{{item.count_member}}人</view>
+            </view>
+        </view>
+    </view>
+    <view wx:else class="title-tips">
+        <view class="spider">
+            <image src="../../images/spider.gif" />
+        </view>
+        <view class="l1">一片虚无</view>
+        <view class="l2">喔唷，好荒凉哦！</view>
+        <view class="l2">快去创建自己的第一个清单吧</view>
+    </view>
+    <view class="btn-area">
+        <button 
+            class="button"
+            type="default" 
+            size="defaultSize" 
+            loading="{{loading}}" 
+            plain="" 
+            bindtap="bindTapCreateGroup" 
+            hover-class="other-button-hover">+ 创建清单</button>
+        <view class="opt-tips"><text>长按可删除清单</text></view>
+    </view>
+</view>

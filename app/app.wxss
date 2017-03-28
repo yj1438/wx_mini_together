@@ -1,0 +1,19 @@
+/**app.wxss**/
+page {
+  height: 100%;
+}
+.container {
+  min-height: 100%;
+} 
+
+
+.hover {
+    background-color: #EEEEEE;
+}
+
+.opt-tips {
+    text-align:center;
+    font-size:24rpx;
+    margin-top:20rpx;
+    color:#ccc;
+}

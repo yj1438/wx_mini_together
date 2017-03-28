@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/groupList/groupList",
+    "pages/index/index"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#4169e1",
+    "navigationBarTitleText": "一起干干干",
+    "navigationBarTextStyle":"white"
+  }
+}
